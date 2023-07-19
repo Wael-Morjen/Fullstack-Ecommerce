@@ -17,6 +17,8 @@ import { Separator } from "@/components/ui/separator";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { AlertModal } from "@/components/modals/alert-modal";
+import { ApiAlert } from "@/components/ui/api-alert";
+import { useOrigin } from "@/hooks/use-origin";
 
 interface SettingsFormProps {
     initialData: Store;
@@ -34,8 +36,11 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
 }) => {
     const params = useParams();
     const router = useRouter();
+    const origin = useOrigin();
+    
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
+
 
     const form = useForm<SettingsFormValues>({
         resolver: zodResolver(formSchema),
@@ -55,12 +60,26 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
         }
     };
 
+    const onDelete = async () => {
+        try {
+            setLoading(true)
+            axios.delete(`/api/stores/${params.storeId}`)
+            router.refresh()
+            router.push("/")
+            toast.success("Store Deleted")
+        } catch (error) {
+            toast.error("Make sure you removed all products and categories first")
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return (
         <>
         <AlertModal 
             isOpen={open}
             onClose={() => setOpen(false)}
-            onConfirm={() => {}}
+            onConfirm={onDelete}
             loading={loading}
         />
             <div className="flex items-center justify-between">
@@ -100,6 +119,12 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
                     </Button>
                 </form>
             </Form>
+            <Separator />
+            <ApiAlert 
+                title="NEXT_PUBLIC_API_URL"
+                description={`${origin}/api/${params.storeId}`}
+                variant="public"
+            />
         </>
     )
 }
