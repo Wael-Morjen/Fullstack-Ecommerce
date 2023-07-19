@@ -20,6 +20,11 @@ export function MainNav ({
             active: pathName === `/${params.storeId}`
         },
         {
+            href: `/${params.storeId}/billboards`,
+            label: "Billboards",
+            active: pathName === `/${params.storeId}/billboard`
+        },
+        {
             href: `/${params.storeId}/settings`,
             label: "Settings",
             active: pathName === `/${params.storeId}/settings`
@@ -29,6 +34,7 @@ export function MainNav ({
     return(
         <nav
             className={cn("flex items-center space-x-4 lg:space-x-6", className)}
+            {...props}
         >
             {routes.map((route) => (
                <Link
