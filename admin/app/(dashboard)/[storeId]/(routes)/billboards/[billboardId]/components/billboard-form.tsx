@@ -36,8 +36,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
 }) => {
     const params = useParams();
     const router = useRouter();
-    const origin = useOrigin();
-    
+
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
