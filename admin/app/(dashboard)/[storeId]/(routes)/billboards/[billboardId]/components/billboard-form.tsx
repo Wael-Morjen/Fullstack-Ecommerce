@@ -83,6 +83,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
             toast.error("Make sure you removed all categories using this billboard first.")
         } finally {
             setLoading(false);
+            setOpen(false);
         }
     }
 
