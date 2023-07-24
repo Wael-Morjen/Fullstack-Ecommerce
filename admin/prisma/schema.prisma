@@ -90,9 +90,9 @@ model Product {
   isFeatured Boolean @default(false)
   isArchived Boolean @default(false)
   sizeId String
-  sizes Size @relation(fields: [sizeId], references: [id])
+  size Size @relation(fields: [sizeId], references: [id])
   colorId String
-  colors Color @relation(fields: [colorId], references: [id])
+  color Color @relation(fields: [colorId], references: [id])
   images Image[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
