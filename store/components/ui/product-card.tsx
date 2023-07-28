@@ -2,6 +2,10 @@
 
 import { Product } from "@/types";
 import Image from "next/image";
+import IconButton from "./icon-button";
+import { Expand, ShoppingCart } from "lucide-react";
+import Currency from "./currency";
+
 
 interface ProductCardProps {
     data: Product;
@@ -19,7 +23,32 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     fill
                     alt="Image"
                     className="aspect-square object-cover rounded-md"
-                /> 
+                />
+                <div className="opacity-0 group-hover:opacity-100 transition absolute w-full px-6 bottom-5">
+                    <div className="flex gap-x-6 justify-center">
+                        <IconButton 
+                            onClick={() => {}}
+                            icon={<Expand size={20} className="text-gray-600" />}
+                        />
+                        <IconButton 
+                            onClick={() => {}}
+                            icon={<ShoppingCart size={20} className="text-gray-600" />}
+                        />
+                    </div>
+                </div>
+            </div>
+            {/* Description */}
+            <div>
+                <p className="font-semibold text-lg">
+                    {data.name}
+                </p>
+                <p className="text-gray-500 text-sm">
+                    {data.category?.name}
+                </p>
+            </div>
+            {/* Price */}
+            <div className="flex justify-between items-center">
+                <Currency value={data?.price}/>
             </div>
         </div>
     );
