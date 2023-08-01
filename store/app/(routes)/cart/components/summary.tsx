@@ -15,6 +15,18 @@ const Summary = () => {
     const items = useCart((state) => state.items);
     const removeAll = useCart((state => state.removeAll))
 
+    useEffect(() => {
+        if (searchParams.get("success")) {
+            toast.success("Payment completed")
+            removeAll()
+        }
+
+        if (searchParams.get("canceled")) {
+            toast.error("Payment canceled")
+        }
+    
+    }, [searchParams, removeAll])
+
     const totalPrice = items.reduce((total, item) => {
         return total + Number(item.price)
     }, 0)
